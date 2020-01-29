@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Léa Fontaine">
+    <meta name="description" content="Lend a Friend something... and remember it !">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link th:href="@{css/style.css}" href="../static/css/style.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Gothic+A1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC&display=swap" rel="stylesheet">
+    <title>Lend a Friend !</title>
+</head>
+<body>
+<section class="content-background-container">
+    <header class="navbar">
+        <a th:href="@{/}" class="navbar-title">Lend a friend</a>
+        <a th:href="@{/}" class="navbar-item">Se connecter</a>
+    </header>
+    <section class="main-content-container">
+        <div class="register">
+            <h2 class="login-menu-title">S'inscrire</h2>
+            <form th:action="@{/}" method="post" class="login-form">
+                <label for="username" class="login-menu-text">Choisir un identifiant :</label>
+                <input id="username" type="text" class="text-input">
+                <label for="password" class="login-menu-text">Choisir un mot de passe :</label>
+                <input id="password" type="text" class="text-input">
+                <label for="password-validation" class="login-menu-text">Confirmer le mot de passe :</label>
+                <input id="password-validation" type="text" class="text-input">
+                <input type="submit" value="S'inscrire" class="main-send-button"/>
+            </form>
+        </div>
+        <div class="about-us">
+            <h2 class="login-menu-title">A propos</h2>
+            <p class="aboutus-text">Lorem ipsum dolor sit amet consectetur. Adipiscing elit sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam quis nostrud voluptate. Excepteur
+                sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+                laborum.
+                Lorem ipsum dolor sit amet consectetur. Adipiscing elit sed do eiusmod tempor incididunt ut labore et
+                dolore magna aliqua. Ut enim ad minim veniam quis nostrud voluptate. Excepteur sint occaecat cupidatat
+                non
+                proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Excepteur sint occaecat
+                cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+        </div>
+    </section>
+</section>
+</body>
+</html>

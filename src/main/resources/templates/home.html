@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Léa Fontaine">
+    <meta name="description" content="Lend a Friend something... and remember it !">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="../static/css/style.css" th:href="@{css/style.css}">
+    <link href="https://fonts.googleapis.com/css?family=Gothic+A1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC&display=swap" rel="stylesheet">
+    <title>Lend a Friend !</title>
+</head>
+<body>
+<header class="navbar">
+    <a class="navbar-title">Lend a friend</a>
+    <div class="flex-right-align">
+        <a class="navbar-item" th:text="${username}" th:href="@{/home}">Username</a>
+        <a th:href="@{/}" class="navbar-item">Se déconnecter</a>
+    </div>
+</header>
+<section class="flex-container-home">
+    <section class="lend">
+        <div class="current-lendings">
+            <h2 class="home-title">Ce que j'ai prêté</h2>
+            <ul class="list-items">
+                <li>Item 1</li>
+                <li>Item 2</li>
+                <li>Item 3</li>
+                <li>Item 4</li>
+                <li>Item 5</li>
+            </ul>
+            <form class="lending-form">
+                <label for="add-lending"></label>
+                <input type="text" id="add-lending" class="text-input home-form">
+                <input type="submit" name="addLending" value="+" class="add-button">
+            </form>
+        </div>
+        <div class="lending-cancelling">
+            <h2 class="home-title">On me l'a rendu</h2>
+            <form class="flex-selectform-home">
+                <select id="select-lending" name="selectLending" class="select-button">
+                    <option selected value="0">Choisir un objet...</option>
+                    <option>Item de test</option>
+                </select>
+                <input type="submit" name="removeLending" value="Rendu :)" class="remove-button">
+            </form>
+        </div>
+    </section>
+    <section class="borrow">
+        <div class="current-borrowings">
+            <h2 class="home-title">Ce que j'ai emprunté</h2>
+            <ul class="list-items">
+                <li>Item 1</li>
+                <li>Item 2</li>
+                <li>Item 3</li>
+                <li>Item 4</li>
+                <li>Item 5</li>
+            </ul>
+            <form class="borrow-form">
+                <label for="add-borrowing"></label>
+                <input type="text" id="add-borrowing" class="text-input home-form">
+                <input type="submit" name="addBorrow" value="+" class="add-button">
+            </form>
+        </div>
+        <div class="borrowing-cancelling">
+            <h2 class="home-title">Je l'ai rendu</h2>
+            <form class="flex-selectform-home">
+                <select id="select-borrowing" name="selectBorrowing" class="select-button">
+                    <option selected value="0" class="select-option">Choisir un objet...</option>
+                    <option class="select-option">Item de test</option>
+                </select>
+                <input type="submit" name="removeBorrow" value="Rendu :)" class="remove-button">
+            </form>
+        </div>
+    </section>
+</section>
+</body>
+</html>
