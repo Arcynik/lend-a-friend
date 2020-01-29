@@ -166,8 +166,8 @@ body {
     border: none;
     background-color: #181418;
     color: #FFFFFF;
-    font-weight: bolder;
-    border-radius: 40%;
+    border-radius: 10px;
+    max-height: 1.8rem;
 }
 
 .lending-form, .borrow-form, .home-title {
