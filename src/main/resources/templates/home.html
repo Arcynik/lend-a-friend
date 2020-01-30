@@ -13,10 +13,10 @@
 </head>
 <body>
 <header class="navbar">
-    <a class="navbar-title">Lend a friend</a>
+    <p class="navbar-title">Lend a friend</p>
     <div class="flex-right-align">
         <p class="navbar-item" name="username" th:text="${username}">Username</p>
-        <a th:href="@{/}" class="navbar-item">Se déconnecter</a>
+        <a th:href="@{/disconnect}" class="navbar-item">Se déconnecter</a>
     </div>
 </header>
 <section class="flex-container-home">
@@ -50,13 +50,11 @@
     <section class="borrow">
         <div class="current-borrowings">
             <h2 class="home-title">Ce que j'ai emprunté</h2>
-            <ul class="list-items">
-                <li>Item 1</li>
-                <li>Item 2</li>
-                <li>Item 3</li>
-                <li>Item 4</li>
-                <li>Item 5</li>
-            </ul>
+            <div class="list-items">
+                <ul name="objectsBorrowed" th:each="objectBorrowed : ${objectsBorrowed}">
+                    <li th:text="${objectBorrowed.getName()}"></li>
+                </ul>
+            </div>
             <form class="borrow-form">
                 <label for="add-borrowing"></label>
                 <input type="text" id="add-borrowing" class="text-input home-form">
@@ -68,7 +66,9 @@
             <form class="flex-selectform-home">
                 <select id="select-borrowing" name="selectBorrowing" class="select-button">
                     <option selected value="0" class="select-option">Choisir un objet...</option>
-                    <option class="select-option">Item de test</option>
+                    <option class="select-option" th:each="objectBorrowed : ${objectsBorrowed}"
+                            th:text="${objectBorrowed.getName()}"
+                            th:value="${objectBorrowed.getIdObjectBorrowed()}"></option>
                 </select>
                 <input type="submit" name="removeBorrow" value="Rendu :)" class="remove-button">
             </form>

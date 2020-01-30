@@ -133,7 +133,7 @@ a:hover {
 .flex-container-home {
     display: flex;
     justify-content: space-evenly;
-    margin-top: 5rem;
+    margin-top: 3rem;
 }
 
 .home-title {
@@ -148,6 +148,7 @@ a:hover {
     margin-top: 1rem;
     border-radius: 10px;
     list-style-type: none;
+    height: 250px;
 }
 
 .current-borrowings, .current-lendings, .lending-cancelling, .borrowing-cancelling {
@@ -155,7 +156,7 @@ a:hover {
 }
 
 .current-lendings, .current-borrowings {
-    margin-bottom: 5rem;
+    margin-bottom: 3rem;
 }
 
 .lend, .borrow {

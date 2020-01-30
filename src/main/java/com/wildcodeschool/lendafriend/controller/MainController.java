@@ -1,4 +1,7 @@
 package com.wildcodeschool.lendafriend.controller;
+
+import com.wildcodeschool.lendafriend.entity.ObjectBorrowed;
+import com.wildcodeschool.lendafriend.entity.ObjectLended;
 import com.wildcodeschool.lendafriend.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -63,29 +66,29 @@ public class MainController {
         return "register";
     }
 
-    //TODO: @PostMapping("/") public String postLogin() {return: home}
-
     @PostMapping("/")
     public String postLogin(@RequestParam String username, @RequestParam String password, HttpSession session, Model out) {
 
         if (userRepository.findByUsernameAndPassword(username, password).isPresent()) {
             User user = userRepository.findByUsernameAndPassword(username, password).get();
             session.setAttribute("user", user);
-            return "redirect:/home?username=" + username;
+            out.addAttribute("username", user.getUsername());
+            List<ObjectBorrowed> borrowedObjects = borrowedRepository.findAllByUserObjectBorrowed(user);
+            out.addAttribute("objectsBorrowed", borrowedObjects);
+            return "home";
         }
 
         out.addAttribute("invalidUser", false);
         return "index";
     }
 
-    //TODO: @GetMapping("/home") public String getHome() {return: home}
-
-    @GetMapping("/home")
-    public String getHome(HttpSession session, @RequestParam String username, Model out) {
-
-        out.addAttribute("username", username);
-        return "home";
-    }
 
     //TODO: @PostMapping("/home") public String postHome() {return: home + signal visuel d'update}
+
+    @GetMapping("/disconnect")
+    public String getDisconnected(HttpSession session) {
+
+        session.removeAttribute("user");
+        return "redirect:/";
+    }
 }
