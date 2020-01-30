@@ -9,6 +9,15 @@ body {
     color: #FFFFFF;
 }
 
+a {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #c49e16;
+}
+
 /*********************************** HEADER/NAVBAR ***********************************/
 
 .navbar {
@@ -124,7 +133,7 @@ body {
 .flex-container-home {
     display: flex;
     justify-content: space-evenly;
-    margin-top: 5rem;
+    margin-top: 3rem;
 }
 
 .home-title {
@@ -139,6 +148,7 @@ body {
     margin-top: 1rem;
     border-radius: 10px;
     list-style-type: none;
+    height: 250px;
 }
 
 .current-borrowings, .current-lendings, .lending-cancelling, .borrowing-cancelling {
@@ -146,7 +156,7 @@ body {
 }
 
 .current-lendings, .current-borrowings {
-    margin-bottom: 5rem;
+    margin-bottom: 3rem;
 }
 
 .lend, .borrow {
@@ -166,8 +176,8 @@ body {
     border: none;
     background-color: #181418;
     color: #FFFFFF;
-    font-weight: bolder;
-    border-radius: 40%;
+    border-radius: 10px;
+    max-height: 1.8rem;
 }
 
 .lending-form, .borrow-form, .home-title {
@@ -188,6 +198,10 @@ body {
     flex-direction: column;
 }
 
+.submit-box {
+    display: flex;
+}
+
 .select-button, .remove-button {
     border-radius: 5px;
     border: none;
@@ -203,4 +217,40 @@ body {
     font-weight: bold;
     align-self: center;
     min-width: 6rem;
+}
+
+/*********************************** ALERTES & TH:IF ***********************************/
+
+.alert-invalid-form {
+    align-self: center;
+    color: #b81616;
+}
+
+.alert-user-created, .alert-valid-link {
+    align-self: center;
+    color: #14a354;
+}
+
+.alert-valid-link {
+    text-decoration: underline;
+}
+
+.alert-valid-link:hover {
+    color: #FFFFFF;
+}
+
+
+.submit-and-alert-box {
+    position: relative;
+}
+
+.align-alert {
+    position: absolute;
+    align-self: center;
+    z-index: 1;
+}
+
+.submit-and-alert-box {
+    display: flex;
+    flex-direction: column-reverse;
 }

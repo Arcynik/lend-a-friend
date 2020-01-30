@@ -8,7 +8,7 @@ public class ObjectLended {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idObjectLended;
-    private String name;
+    private String lendName;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_user")
@@ -26,11 +26,11 @@ public class ObjectLended {
     }
 
     public String getName() {
-        return name;
+        return lendName;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.lendName = name;
     }
 
     public User getUserObjectLended() {

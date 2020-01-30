@@ -14,17 +14,18 @@
 <body>
 <section class="content-background-container">
     <header class="navbar">
-        <a class="navbar-title">Lend a friend</a>
+        <p class="navbar-title">Lend a friend</p>
         <a th:href="@{/inscription}" class="navbar-item">S'inscrire</a>
     </header>
     <section class="main-content-container">
         <div class="connection">
-            <h2 class="login-menu-title">CONNEXION</h2>
+            <h2 class="login-menu-title">Connexion</h2>
             <form th:action="@{/}" method="post" class="login-form">
                 <label for="username" class="login-menu-text">Identifiant</label>
-                <input id="username" type="text" class="text-input">
+                <input id="username" type="text" class="text-input" name="username">
                 <label for="password" class="login-menu-text">Mot de passe</label>
-                <input id="password" type="text" class="text-input">
+                <input id="password" type="password" class="text-input" name="password">
+                <p th:if="${invalidUser != null}" class="alert-invalid-form">L'identifiant ou le mot de passe n'existe pas !</p>
                 <input type="submit" value="Se connecter" class="main-send-button"/>
             </form>
         </div>
