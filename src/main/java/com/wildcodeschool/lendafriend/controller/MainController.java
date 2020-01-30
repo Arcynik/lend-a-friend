@@ -86,7 +86,9 @@ public class MainController {
 
         User user = (User) session.getAttribute("user");
         List<ObjectBorrowed> borrowedObjects = borrowedRepository.findAllByUserObjectBorrowed(user);
+        List<ObjectLended> lendedObjects = lendedRepository.findAllByUserObjectLended(user);
         out.addAttribute("objectsBorrowed", borrowedObjects);
+        out.addAttribute("objectsLended", lendedObjects);
         return "home";
     }
 
@@ -96,11 +98,17 @@ public class MainController {
                                @RequestParam(required = false) String borrowName,
                                @RequestParam(required = false, defaultValue = "") String addBorrow,
                                @RequestParam(required = false, defaultValue = "") String removeBorrow,
-                               @RequestParam(required = false) ObjectBorrowed selectBorrowing) {
+                               @RequestParam(required = false) ObjectBorrowed selectBorrow,
+                               @ModelAttribute ObjectLended objectLended,
+                               @RequestParam(required = false) String lendName,
+                               @RequestParam(required = false, defaultValue = "") String addLend,
+                               @RequestParam(required = false, defaultValue = "") String removeLend,
+                               @RequestParam(required = false) ObjectLended selectLend) {
 
         User user = (User) session.getAttribute("user");
         out.addAttribute("objectBorrowed", new ObjectBorrowed());
 
+        // Ajout d'un objet emprunté
         if (addBorrow.equals("+")) {
             objectBorrowed.setName(borrowName);
             objectBorrowed.setUserObjectBorrowed(user);
@@ -108,8 +116,22 @@ public class MainController {
             return "redirect:/home";
         }
 
+        // Suppression d'un objet emprunté
         if (removeBorrow.equals("Rendu :)")) {
-            borrowedRepository.deleteById(selectBorrowing.getIdObjectBorrowed());
+            borrowedRepository.deleteById(selectBorrow.getIdObjectBorrowed());
+            return "redirect:/home";
+        }
+        // Ajout d'un objet prêté
+        if (addLend.equals("+")) {
+            objectLended.setName(lendName);
+            objectLended.setUserObjectLended(user);
+            lendedRepository.save(objectLended);
+            return "redirect:/home";
+        }
+
+        // Suppression d'un objet prêté
+        if (removeLend.equals("Rendu :)")) {
+            lendedRepository.deleteById(selectLend.getIdObjectLended());
             return "redirect:/home";
         }
 
@@ -117,7 +139,6 @@ public class MainController {
     }
 
 
-    //TODO: @PostMapping("/home") public String postHome() {return: home + signal visuel d'update}
 
     @GetMapping("/disconnect")
     public String getDisconnected(HttpSession session) {
