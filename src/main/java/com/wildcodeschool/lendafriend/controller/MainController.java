@@ -2,8 +2,8 @@ package com.wildcodeschool.lendafriend.controller;
 import com.wildcodeschool.lendafriend.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import com.wildcodeschool.lendafriend.repository.ObjectBorrowedRepository;
 import com.wildcodeschool.lendafriend.repository.ObjectLendedRepository;
 import com.wildcodeschool.lendafriend.repository.UserRepository;
@@ -46,7 +46,27 @@ public class MainController {
         return "register";
     }
 
-    //TODO: @PostMapping("/incription") public String postRegistration() {return: home}
+    @PostMapping("/inscription")
+    public String postRegistration(Model out,
+                                   @RequestParam(required = false) String username, @RequestParam String password,
+                                   @RequestParam String passwordValidation, @ModelAttribute User user) {
+
+        if (!password.equals(passwordValidation)) {
+            out.addAttribute("valid", false);
+            return "register";
+        }
+
+        if (username.isEmpty()) {
+            out.addAttribute("emptyUsername", true);
+            return "register";
+        }
+
+        user.setUsername(username);
+        user.setPassword(password);
+        userRepository.save(user);
+        out.addAttribute("userCreated", true);
+        return "register";
+    }
 
     //TODO: @GetMapping("/home") public String getHome() {return: home}
 

@@ -20,13 +20,17 @@
     <section class="main-content-container">
         <div class="register">
             <h2 class="login-menu-title">S'inscrire</h2>
-            <form th:action="@{/}" method="post" class="login-form">
+            <form th:action="@{/inscription}" method="post" class="login-form">
                 <label for="username" class="login-menu-text">Choisir un identifiant :</label>
-                <input id="username" type="text" class="text-input">
+                <input id="username" type="text" class="text-input" name="username">
                 <label for="password" class="login-menu-text">Choisir un mot de passe :</label>
-                <input id="password" type="text" class="text-input">
+                <input id="password" type="password" class="text-input" name="password">
                 <label for="password-validation" class="login-menu-text">Confirmer le mot de passe :</label>
-                <input id="password-validation" type="text" class="text-input">
+                <input id="password-validation" type="password" class="text-input" name="passwordValidation">
+                <p th:if="${valid != null}" class="alert-invalid-form">Les mots de passe ne correspondent pas !</p>
+                <p th:if="${emptyUsername != null}" class="alert-invalid-form">Merci de choisir un identifiant !</p>
+                <p th:if="${userCreated != null}" class="alert-user-created">Votre profil a été créé, <a
+                        class="alert-valid-link" th:href="@{/}">connectez-vous</a> :)</p>
                 <input type="submit" value="S'inscrire" class="main-send-button"/>
             </form>
         </div>

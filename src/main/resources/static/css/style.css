@@ -9,6 +9,15 @@ body {
     color: #FFFFFF;
 }
 
+a {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #c49e16;
+}
+
 /*********************************** HEADER/NAVBAR ***********************************/
 
 .navbar {
@@ -204,3 +213,24 @@ body {
     align-self: center;
     min-width: 6rem;
 }
+
+/*********************************** ALERTES & TH:IF ***********************************/
+
+.alert-invalid-form {
+    align-self: center;
+    color: #b81616;
+}
+
+.alert-user-created, .alert-valid-link {
+    align-self: center;
+    color: #14a354;
+}
+
+.alert-valid-link {
+    text-decoration: underline;
+}
+
+.alert-valid-link:hover {
+    color: #FFFFFF;
+}
+
