@@ -1,5 +1,6 @@
 package com.wildcodeschool.lendafriend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import javax.persistence.*;
@@ -17,10 +18,12 @@ public class User {
 
     @OneToMany(mappedBy = "userObjectBorrowed")
     @Cascade({CascadeType.ALL})
+    @JsonIgnore
     private List<ObjectBorrowed> objectsBorrowed = new ArrayList<>();
 
     @OneToMany(mappedBy = "userObjectLended")
     @Cascade({CascadeType.ALL})
+    @JsonIgnore
     private List<ObjectLended> objectsLended = new ArrayList<>();
 
     public User() {
