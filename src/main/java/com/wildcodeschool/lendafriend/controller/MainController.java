@@ -73,13 +73,47 @@ public class MainController {
             User user = userRepository.findByUsernameAndPassword(username, password).get();
             session.setAttribute("user", user);
             out.addAttribute("username", user.getUsername());
-            List<ObjectBorrowed> borrowedObjects = borrowedRepository.findAllByUserObjectBorrowed(user);
-            out.addAttribute("objectsBorrowed", borrowedObjects);
-            return "home";
+            return "redirect:/home";
         }
-
         out.addAttribute("invalidUser", false);
         return "index";
+    }
+
+    @GetMapping("/home")
+    public String getHomepage(Model out, HttpSession session,
+                              @ModelAttribute ObjectBorrowed objectBorrowed,
+                              @ModelAttribute ObjectLended objectLended) {
+
+        User user = (User) session.getAttribute("user");
+        List<ObjectBorrowed> borrowedObjects = borrowedRepository.findAllByUserObjectBorrowed(user);
+        out.addAttribute("objectsBorrowed", borrowedObjects);
+        return "home";
+    }
+
+    @PostMapping("/post-home-form")
+    public String postHomeForm(HttpSession session, Model out,
+                               @ModelAttribute ObjectBorrowed objectBorrowed,
+                               @RequestParam(required = false) String borrowName,
+                               @RequestParam(required = false, defaultValue = "") String addBorrow,
+                               @RequestParam(required = false, defaultValue = "") String removeBorrow,
+                               @RequestParam(required = false) ObjectBorrowed selectBorrowing) {
+
+        User user = (User) session.getAttribute("user");
+        out.addAttribute("objectBorrowed", new ObjectBorrowed());
+
+        if (addBorrow.equals("+")) {
+            objectBorrowed.setName(borrowName);
+            objectBorrowed.setUserObjectBorrowed(user);
+            borrowedRepository.save(objectBorrowed);
+            return "redirect:/home";
+        }
+
+        if (removeBorrow.equals("Rendu :)")) {
+            borrowedRepository.deleteById(selectBorrowing.getIdObjectBorrowed());
+            return "redirect:/home";
+        }
+
+        return "redirect:/home";
     }
 
 

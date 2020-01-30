@@ -55,15 +55,15 @@
                     <li th:text="${objectBorrowed.getName()}"></li>
                 </ul>
             </div>
-            <form class="borrow-form">
+            <form class="borrow-form" th:object="${objectBorrowed}" th:action="@{/post-home-form}" method="post">
                 <label for="add-borrowing"></label>
-                <input type="text" id="add-borrowing" class="text-input home-form">
+                <input type="text" id="add-borrowing" class="text-input home-form" name="borrowName">
                 <input type="submit" name="addBorrow" value="+" class="add-button">
             </form>
         </div>
         <div class="borrowing-cancelling">
             <h2 class="home-title">Je l'ai rendu</h2>
-            <form class="flex-selectform-home">
+            <form class="flex-selectform-home" th:action="@{post-home-form}" method="post">
                 <select id="select-borrowing" name="selectBorrowing" class="select-button">
                     <option selected value="0" class="select-option">Choisir un objet...</option>
                     <option class="select-option" th:each="objectBorrowed : ${objectsBorrowed}"
