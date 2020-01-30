@@ -28,15 +28,24 @@
                     <li th:text="${objectLended.getName()}"></li>
                 </ul>
             </div>
-            <form class="lending-form" th:object="${objectLended}" th:action="@{/post-home-form}" method="post">
+            <form class="lending-form" th:object="${objectLended}" th:action="@{/submit-form}" method="post">
                 <label for="add-lend"></label>
-                <input type="text" id="add-lend" class="text-input home-form" name="lendName">
-                <input type="submit" name="addLend" value="+" class="add-button">
+                <div class="submit-and-alert-box">
+                    <div class="submit-box">
+                        <input type="text" id="add-lend" class="text-input home-form" name="lendName">
+                        <input type="submit" name="addLend" value="+" class="add-button">
+                    </div>
+                    <div class="align-alert">
+                        <p th:if="${emptyLendObject != null}" class="alert-invalid-form">Merci d'entrer un
+                            nom
+                            d'objet !</p>
+                    </div>
+                </div>
             </form>
         </div>
         <div class="lending-cancelling">
             <h2 class="home-title">On me l'a rendu</h2>
-            <form class="flex-selectform-home" th:action="@{post-home-form}" method="post">
+            <form class="flex-selectform-home" th:action="@{/submit-form}" method="post">
                 <select id="select-lending" name="selectLend" class="select-button">
                     <option selected value="0">Choisir un objet...</option>
                     <option class="select-option" th:each="objectLended : ${objectsLended}"
@@ -54,15 +63,23 @@
                     <li th:text="${objectBorrowed.getName()}"></li>
                 </ul>
             </div>
-            <form class="borrow-form" th:object="${objectBorrowed}" th:action="@{/post-home-form}" method="post">
+            <form class="borrow-form" th:object="${objectBorrowed}" th:action="@{/submit-form}" method="post">
                 <label for="add-borrowing"></label>
-                <input type="text" id="add-borrowing" class="text-input home-form" name="borrowName">
-                <input type="submit" name="addBorrow" value="+" class="add-button">
+                <div class="submit-and-alert-box">
+                    <div class="submit-box">
+                        <input type="text" id="add-borrowing" class="text-input home-form" name="borrowName">
+                        <input type="submit" name="addBorrow" value="+" class="add-button">
+                    </div>
+                    <div class="align-alert">
+                        <p th:if="${emptyBorrowObject != null}" class="alert-invalid-form">Merci d'entrer un nom
+                            d'objet !</p>
+                    </div>
+                </div>
             </form>
         </div>
         <div class="borrowing-cancelling">
             <h2 class="home-title">Je l'ai rendu</h2>
-            <form class="flex-selectform-home" th:action="@{post-home-form}" method="post">
+            <form class="flex-selectform-home" th:action="@{/submit-form}" method="post">
                 <select id="select-borrowing" name="selectBorrow" class="select-button">
                     <option selected value="0" class="select-option">Choisir un objet...</option>
                     <option class="select-option" th:each="objectBorrowed : ${objectsBorrowed}"

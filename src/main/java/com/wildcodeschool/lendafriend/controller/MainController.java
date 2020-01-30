@@ -13,7 +13,6 @@ import com.wildcodeschool.lendafriend.repository.UserRepository;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class MainController {
@@ -54,7 +53,7 @@ public class MainController {
             return "register";
         }
 
-        if (userRepository.findAll().contains(username)) {
+        if (!userRepository.findAllByUsername(username).isEmpty()) {
             out.addAttribute("userAlreadyExists", true);
             return "register";
         }
@@ -85,6 +84,10 @@ public class MainController {
                               @ModelAttribute ObjectLended objectLended) {
 
         User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return "index";
+        }
+
         List<ObjectBorrowed> borrowedObjects = borrowedRepository.findAllByUserObjectBorrowed(user);
         List<ObjectLended> lendedObjects = lendedRepository.findAllByUserObjectLended(user);
         out.addAttribute("objectsBorrowed", borrowedObjects);
@@ -92,7 +95,7 @@ public class MainController {
         return "home";
     }
 
-    @PostMapping("/post-home-form")
+    @PostMapping("/submit-form")
     public String postHomeForm(HttpSession session, Model out,
                                @ModelAttribute ObjectBorrowed objectBorrowed,
                                @RequestParam(required = false) String borrowName,
@@ -108,8 +111,16 @@ public class MainController {
         User user = (User) session.getAttribute("user");
         out.addAttribute("objectBorrowed", new ObjectBorrowed());
 
-        // Ajout d'un objet emprunté
+        // Ajout d'un objet empruntéome
         if (addBorrow.equals("+")) {
+          if (borrowName.equals("")) {
+                out.addAttribute("emptyBorrowObject", true);
+              List<ObjectBorrowed> borrowedObjects = borrowedRepository.findAllByUserObjectBorrowed(user);
+              List<ObjectLended> lendedObjects = lendedRepository.findAllByUserObjectLended(user);
+              out.addAttribute("objectsBorrowed", borrowedObjects);
+              out.addAttribute("objectsLended", lendedObjects);
+                return "home";
+            }
             objectBorrowed.setName(borrowName);
             objectBorrowed.setUserObjectBorrowed(user);
             borrowedRepository.save(objectBorrowed);
@@ -123,6 +134,14 @@ public class MainController {
         }
         // Ajout d'un objet prêté
         if (addLend.equals("+")) {
+            if (lendName.equals("")) {
+                out.addAttribute("emptyLendObject", true);
+                List<ObjectBorrowed> borrowedObjects = borrowedRepository.findAllByUserObjectBorrowed(user);
+                List<ObjectLended> lendedObjects = lendedRepository.findAllByUserObjectLended(user);
+                out.addAttribute("objectsBorrowed", borrowedObjects);
+                out.addAttribute("objectsLended", lendedObjects);
+                return "home";
+            }
             objectLended.setName(lendName);
             objectLended.setUserObjectLended(user);
             lendedRepository.save(objectLended);
@@ -137,7 +156,6 @@ public class MainController {
 
         return "redirect:/home";
     }
-
 
 
     @GetMapping("/disconnect")

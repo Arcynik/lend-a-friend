@@ -198,6 +198,10 @@ a:hover {
     flex-direction: column;
 }
 
+.submit-box {
+    display: flex;
+}
+
 .select-button, .remove-button {
     border-radius: 5px;
     border: none;
@@ -235,3 +239,18 @@ a:hover {
     color: #FFFFFF;
 }
 
+
+.submit-and-alert-box {
+    position: relative;
+}
+
+.align-alert {
+    position: absolute;
+    align-self: center;
+    z-index: 1;
+}
+
+.submit-and-alert-box {
+    display: flex;
+    flex-direction: column-reverse;
+}
