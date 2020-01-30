@@ -15,7 +15,7 @@
 <header class="navbar">
     <p class="navbar-title">Lend a friend</p>
     <div class="flex-right-align">
-        <p class="navbar-item" name="username" th:text="${username}">Username</p>
+        <p class="navbar-item" name="username" th:text="${username}"></p>
         <a th:href="@{/disconnect}" class="navbar-item">Se déconnecter</a>
     </div>
 </header>
@@ -52,6 +52,7 @@
                             th:text="${objectLended.getName()}" th:value="${objectLended.getIdObjectLended()}"></option>
                 </select>
                 <input type="submit" name="removeLend" value="Rendu :)" class="remove-button">
+                <p class="alert-invalid-form" th:if="${noSelectedLend != null}">Merci de choisir un prêt à supprimer !</p>
             </form>
         </div>
     </section>
@@ -87,6 +88,7 @@
                             th:value="${objectBorrowed.getIdObjectBorrowed()}"></option>
                 </select>
                 <input type="submit" name="removeBorrow" value="Rendu :)" class="remove-button">
+                <p class="alert-invalid-form" th:if="${noSelectedBorrow != null}">Merci de choisir un emprunt à supprimer !</p>
             </form>
         </div>
     </section>

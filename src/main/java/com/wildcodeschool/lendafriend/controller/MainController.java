@@ -53,6 +53,11 @@ public class MainController {
             return "register";
         }
 
+        if (password.length() < 3) {
+            out.addAttribute("tooShortPassword", true);
+            return "register";
+        }
+
         if (!userRepository.findAllByUsername(username).isEmpty()) {
             out.addAttribute("userAlreadyExists", true);
             return "register";
@@ -88,6 +93,7 @@ public class MainController {
             return "index";
         }
 
+        out.addAttribute("username", user.getUsername());
         List<ObjectBorrowed> borrowedObjects = borrowedRepository.findAllByUserObjectBorrowed(user);
         List<ObjectLended> lendedObjects = lendedRepository.findAllByUserObjectLended(user);
         out.addAttribute("objectsBorrowed", borrowedObjects);
@@ -101,20 +107,21 @@ public class MainController {
                                @RequestParam(required = false) String borrowName,
                                @RequestParam(required = false, defaultValue = "") String addBorrow,
                                @RequestParam(required = false, defaultValue = "") String removeBorrow,
-                               @RequestParam(required = false) ObjectBorrowed selectBorrow,
+                               @RequestParam(required = false) Long selectBorrow,
                                @ModelAttribute ObjectLended objectLended,
                                @RequestParam(required = false) String lendName,
                                @RequestParam(required = false, defaultValue = "") String addLend,
                                @RequestParam(required = false, defaultValue = "") String removeLend,
-                               @RequestParam(required = false) ObjectLended selectLend) {
+                               @RequestParam(required = false) Long selectLend) {
 
         User user = (User) session.getAttribute("user");
         out.addAttribute("objectBorrowed", new ObjectBorrowed());
 
-        // Ajout d'un objet empruntéome
+        // Ajout d'un objet emprunté
         if (addBorrow.equals("+")) {
           if (borrowName.equals("")) {
-                out.addAttribute("emptyBorrowObject", true);
+              out.addAttribute("emptyBorrowObject", true);
+              out.addAttribute("username", user.getUsername());
               List<ObjectBorrowed> borrowedObjects = borrowedRepository.findAllByUserObjectBorrowed(user);
               List<ObjectLended> lendedObjects = lendedRepository.findAllByUserObjectLended(user);
               out.addAttribute("objectsBorrowed", borrowedObjects);
@@ -129,13 +136,23 @@ public class MainController {
 
         // Suppression d'un objet emprunté
         if (removeBorrow.equals("Rendu :)")) {
-            borrowedRepository.deleteById(selectBorrow.getIdObjectBorrowed());
+            if (selectBorrow == 0) {
+                out.addAttribute("noSelectedBorrow", true);
+                out.addAttribute("username", user.getUsername());
+                List<ObjectBorrowed> borrowedObjects = borrowedRepository.findAllByUserObjectBorrowed(user);
+                List<ObjectLended> lendedObjects = lendedRepository.findAllByUserObjectLended(user);
+                out.addAttribute("objectsBorrowed", borrowedObjects);
+                out.addAttribute("objectsLended", lendedObjects);
+                return "home";
+            }
+            borrowedRepository.deleteById(selectBorrow);
             return "redirect:/home";
         }
         // Ajout d'un objet prêté
         if (addLend.equals("+")) {
             if (lendName.equals("")) {
                 out.addAttribute("emptyLendObject", true);
+                out.addAttribute("username", user.getUsername());
                 List<ObjectBorrowed> borrowedObjects = borrowedRepository.findAllByUserObjectBorrowed(user);
                 List<ObjectLended> lendedObjects = lendedRepository.findAllByUserObjectLended(user);
                 out.addAttribute("objectsBorrowed", borrowedObjects);
@@ -150,7 +167,16 @@ public class MainController {
 
         // Suppression d'un objet prêté
         if (removeLend.equals("Rendu :)")) {
-            lendedRepository.deleteById(selectLend.getIdObjectLended());
+            if (selectLend == 0) {
+                out.addAttribute("noSelectedLend", true);
+                out.addAttribute("username", user.getUsername());
+                List<ObjectBorrowed> borrowedObjects = borrowedRepository.findAllByUserObjectBorrowed(user);
+                List<ObjectLended> lendedObjects = lendedRepository.findAllByUserObjectLended(user);
+                out.addAttribute("objectsBorrowed", borrowedObjects);
+                out.addAttribute("objectsLended", lendedObjects);
+                return "home";
+            }
+            lendedRepository.deleteById(selectLend);
             return "redirect:/home";
         }
 

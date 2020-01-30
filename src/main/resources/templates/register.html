@@ -29,6 +29,7 @@
                 <input id="password-validation" type="password" class="text-input" name="passwordValidation">
                 <p th:if="${valid != null}" class="alert-invalid-form">Les mots de passe ne correspondent pas !</p>
                 <p th:if="${emptyUsername != null}" class="alert-invalid-form">Merci de choisir un identifiant !</p>
+                <p th:if="${tooShortPassword != null}" class="alert-invalid-form">Le mot de passe doit faire plus de 2 caractères !</p>
                 <p th:if="${userAlreadyExists != null}" class="alert-invalid-form">L'identifiant existe déjà !</p>
                 <p th:if="${userCreated != null}" class="alert-user-created">Votre profil a été créé, <a
                         class="alert-valid-link" th:href="@{/}">connectez-vous</a> :)</p>
