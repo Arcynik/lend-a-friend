@@ -15,7 +15,7 @@
 <header class="navbar">
     <a class="navbar-title">Lend a friend</a>
     <div class="flex-right-align">
-        <a class="navbar-item" th:text="${username}" th:href="@{/home}">Username</a>
+        <p class="navbar-item" name="username" th:text="${username}">Username</p>
         <a th:href="@{/}" class="navbar-item">Se déconnecter</a>
     </div>
 </header>

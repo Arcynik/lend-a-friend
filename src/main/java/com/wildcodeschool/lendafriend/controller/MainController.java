@@ -8,7 +8,9 @@ import com.wildcodeschool.lendafriend.repository.ObjectBorrowedRepository;
 import com.wildcodeschool.lendafriend.repository.ObjectLendedRepository;
 import com.wildcodeschool.lendafriend.repository.UserRepository;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class MainController {
@@ -22,23 +24,11 @@ public class MainController {
     @Autowired
     ObjectLendedRepository lendedRepository;
 
-
-    @GetMapping("/users")
-    @ResponseBody
-    public List<User> getAllUsers() {
-
-        List<User> allUsers = userRepository.findAll();
-
-        return allUsers;
-    }
-
     @GetMapping("/")
     public String getIndex() {
 
         return "index";
     }
-
-    //TODO: @PostMapping("/") public String postLogin() {return: home}
 
     @GetMapping("/inscription")
     public String getRegistration() {
@@ -61,6 +51,11 @@ public class MainController {
             return "register";
         }
 
+        if (userRepository.findAll().contains(username)) {
+            out.addAttribute("userAlreadyExists", true);
+            return "register";
+        }
+
         user.setUsername(username);
         user.setPassword(password);
         userRepository.save(user);
@@ -68,11 +63,27 @@ public class MainController {
         return "register";
     }
 
+    //TODO: @PostMapping("/") public String postLogin() {return: home}
+
+    @PostMapping("/")
+    public String postLogin(@RequestParam String username, @RequestParam String password, HttpSession session, Model out) {
+
+        if (userRepository.findByUsernameAndPassword(username, password).isPresent()) {
+            User user = userRepository.findByUsernameAndPassword(username, password).get();
+            session.setAttribute("user", user);
+            return "redirect:/home?username=" + username;
+        }
+
+        out.addAttribute("invalidUser", false);
+        return "index";
+    }
+
     //TODO: @GetMapping("/home") public String getHome() {return: home}
 
     @GetMapping("/home")
-    public String getHome() {
+    public String getHome(HttpSession session, @RequestParam String username, Model out) {
 
+        out.addAttribute("username", username);
         return "home";
     }
 
