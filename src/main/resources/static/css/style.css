@@ -271,6 +271,44 @@ a:hover {
 
 @media screen and (max-width: 1140px) {
 
+    .content-background-container {
+        background-color: #000000;
+        height: auto;
+        width: auto;
+    }
 
-    
+    .main-content-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .connection, .about-us, .register {
+        max-width: 450px;
+        margin-right: 2rem;
+        margin-left: 2rem;
+        margin-bottom: 3rem;
+    }
+
+    .text-input {
+        max-width: 300px;
+    }
+
+    .login-form {
+        min-width: auto;
+    }
+
+    .flex-right-align {
+        flex-direction: column;
+        align-items: flex-end;
+    }
+
+    .flex-container-home {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .lend, .borrow {
+        min-width: auto;
+        max-width: 450px;
+    }
 }
