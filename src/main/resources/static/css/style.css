@@ -218,6 +218,18 @@ a:hover {
     align-self: center;
     min-width: 6rem;
 }
+/*********************************** PAGE D'ERREUR ***********************************/
+
+.error-text {
+    font-family: 'Amatic SC', sans-serif;
+    font-size: xx-large;
+}
+
+.flex-container-error {
+    display: flex;
+    justify-content: center;
+    margin-top: 6rem;
+}
 
 /*********************************** ALERTES & TH:IF ***********************************/
 
@@ -253,4 +265,12 @@ a:hover {
 .submit-and-alert-box {
     display: flex;
     flex-direction: column-reverse;
+}
+
+/*********************************** MEDIA QUERIES MOBILE ***********************************/
+
+@media screen and (max-width: 1140px) {
+
+
+    
 }
