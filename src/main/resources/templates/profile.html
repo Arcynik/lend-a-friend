@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="author" content="Léa Fontaine">
+    <meta name="description" content="Lend a Friend something... and remember it !">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" th:href="@{css/style.css}" href="../static/css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Gothic+A1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC&display=swap" rel="stylesheet">
+    <title>Lend a Friend - Profile</title>
+</head>
+<body>
+<header class="navbar">
+    <p class="navbar-title">Lend a friend</p>
+    <div class="flex-right-align">
+        <p class="navbar-item" name="username" th:text="${username}"></p>
+        <a th:href="@{/disconnect}" class="navbar-item">Se déconnecter</a>
+    </div>
+</header>
+<section class="flex-container-profile">
+    <div class="profile-container">
+        <h2 class="error-text">Profil</h2>
+        <section class="profile-container">
+            <img th:href="@{/images/2nix140800101.jpg}" height="150" width="150"/>
+            <div class="profile-id-container">
+                <h1>Identifiant: </h1>
+                <p th:text="${usernameProfile}"></p>
+            </div>
+            <div class="current-borrowings">
+                <h2 class="home-title">Ce qu'iel a emprunté</h2>
+                <div class="list-items">
+                    <ul name="objectsBorrowed" th:each="objectBorrowed : ${objectsBorrowed}">
+                        <li th:text="${objectBorrowed.getName()}"></li>
+                    </ul>
+                </div>
+        </section>
+    </div>
+</section>
+</body>
+</html>

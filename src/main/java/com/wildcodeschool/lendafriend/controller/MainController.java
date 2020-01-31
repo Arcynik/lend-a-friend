@@ -13,6 +13,7 @@ import com.wildcodeschool.lendafriend.repository.UserRepository;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 public class MainController {
@@ -82,6 +83,42 @@ public class MainController {
         out.addAttribute("invalidUser", false);
         return "index";
     }
+
+    //TODO: Faire une route de profil mieux :)
+
+    @GetMapping("/profile")
+    public String getProfile(Model out, HttpSession session, @ModelAttribute ObjectBorrowed objectBorrowed) {
+
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return "index";
+        }
+
+        out.addAttribute("username", user.getUsername());
+        List<ObjectBorrowed> borrowedObjects = borrowedRepository.findAllByUserObjectBorrowed(user);
+        out.addAttribute("objectsBorrowed", borrowedObjects);
+        return "profile";
+    }
+
+    //TODO: Fix cette route parce que le CSS MARCHE PAAAAAAAAAAS.
+    /**
+    @GetMapping("/profile/{idUser}")
+    public String getProfile(Model out, HttpSession session, @ModelAttribute ObjectBorrowed objectBorrowed, @PathVariable Long idUser) {
+
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            return "index";
+        }
+        out.addAttribute("username", user.getUsername());
+        Optional<User> userProfile = userRepository.findById(idUser);
+        if (userProfile.isEmpty()) {
+            return "home";
+        }
+        out.addAttribute("usernameProfile", userProfile.get().getUsername());
+        List<ObjectBorrowed> borrowedObjects = borrowedRepository.findAllByUserObjectBorrowed(userProfile.get());
+        out.addAttribute("objectsBorrowed", borrowedObjects);
+        return "profile";
+    } **/
 
     @GetMapping("/home")
     public String getHomepage(Model out, HttpSession session,
